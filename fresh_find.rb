@@ -7,8 +7,12 @@ def client
   )
 end
 
+def user
+  ENV['GITHUB_USER'] || raise('Missing `GITHUB_USER` environment variable')
+end
+
 def items
-  @items ||= client.search_code('path:freshrc', :per_page => 1000).items
+  @items ||= client.search_code("fresh filename:freshrc user:#{user}", :per_page => 100).items
 end
 
 items.each do |item|
