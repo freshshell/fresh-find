@@ -1,10 +1,7 @@
 require 'octokit'
 
 def client
-  @client ||= Octokit::Client.new(
-    login: ENV['LOGIN'],
-    password: ENV['PASSWORD']
-  )
+  @client ||= Octokit::Client.new access_token: ENV['ACCESS_TOKEN']
 end
 
 def user
