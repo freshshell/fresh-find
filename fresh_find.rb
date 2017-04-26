@@ -4,12 +4,8 @@ def client
   @client ||= Octokit::Client.new access_token: ENV['ACCESS_TOKEN']
 end
 
-def user
-  ENV['GITHUB_USER'] || raise('Missing `GITHUB_USER` environment variable')
-end
-
 def items
-  @items ||= client.search_code("fresh filename:freshrc user:#{user}", per_page: 100).items
+  @items ||= client.search_code("fresh filename:freshrc", per_page: 100).items
 end
 
 items.each do |item|
