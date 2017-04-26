@@ -8,14 +8,6 @@ module FreshFind
       new.call
     end
 
-    def client
-      @client ||= Octokit::Client.new access_token: ACCESS_TOKEN
-    end
-
-    def items
-      @items ||= client.search_code("fresh filename:freshrc", per_page: 100).items
-    end
-
     def call
       items.each do |item|
         content = Base64.decode64 client.contents(item.repository.full_name, path: item.path).content
@@ -28,6 +20,16 @@ module FreshFind
         # NOTE: these lines contain "fresh-options" which means we probably need to
         # parse the file with fresh to add any options.
       end
+    end
+
+    private
+
+    def client
+      @client ||= Octokit::Client.new access_token: ACCESS_TOKEN
+    end
+
+    def items
+      @items ||= client.search_code("fresh filename:freshrc", per_page: 100).items
     end
   end
 end
