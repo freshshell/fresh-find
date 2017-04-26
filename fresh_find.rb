@@ -1,7 +1,7 @@
 require 'octokit'
 
 def access_token
-  ENV['ACCESS_TOKEN']
+  ENV.fetch 'ACCESS_TOKEN'
 end
 
 def client
