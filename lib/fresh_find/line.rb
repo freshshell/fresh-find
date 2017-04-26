@@ -2,16 +2,14 @@ require 'octokit'
 
 module FreshFind
   class Line
+    ACCESS_TOKEN = ENV.fetch 'ACCESS_TOKEN'
+
     def self.all
       new.call
     end
 
-    def access_token
-      ENV.fetch 'ACCESS_TOKEN'
-    end
-
     def client
-      @client ||= Octokit::Client.new access_token: access_token
+      @client ||= Octokit::Client.new access_token: ACCESS_TOKEN
     end
 
     def items
