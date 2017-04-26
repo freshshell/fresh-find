@@ -1,5 +1,3 @@
-$LOAD_PATH << '.'
-
 require 'lib/fresh_find/line'
 
 module FreshFind
@@ -7,5 +5,3 @@ module FreshFind
     Line.all
   end
 end
-
-FreshFind.()
