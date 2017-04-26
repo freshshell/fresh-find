@@ -1,7 +1,11 @@
 require 'octokit'
 
+def access_token
+  ENV['ACCESS_TOKEN']
+end
+
 def client
-  @client ||= Octokit::Client.new access_token: ENV['ACCESS_TOKEN']
+  @client ||= Octokit::Client.new access_token: access_token
 end
 
 def items
