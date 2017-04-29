@@ -1,0 +1,10 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
+if [[ "${1:-}" == "clone" ]]; then
+  shift
+  exec /usr/bin/git cclone "$@"
+else
+  exec /usr/bin/git "$@"
+fi
