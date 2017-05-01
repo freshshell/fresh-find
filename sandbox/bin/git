@@ -3,8 +3,35 @@ set -euo pipefail
 IFS=$'\n\t'
 
 if [[ "${1:-}" == "clone" ]]; then
-  shift
-  exec /usr/bin/git cclone "$@"
+  if [ $# -ne 3 ]; then
+    echo "Unsupported git clone option." >&2
+    exit 1
+  fi
+  REPO="$2"
+  DEST="$3"
+
+  if [ -e "$DEST" ]; then
+    echo "$DEST already exists" >&2
+    exit 1
+  fi
+
+  (
+    set -euo pipefail
+    IFS=$'\n\t'
+
+    flock 9
+
+    if [ -e "$DEST" ]; then
+      echo "$DEST created by other session."
+      exit 0
+    fi
+
+    rm -rf "${DEST}.new"
+    /usr/bin/git cclone "$REPO" "${DEST}.new"
+    mv "${DEST}.new" "${DEST}"
+
+    rm "${DEST}.lock"
+  ) 9> "${DEST}.lock"
 else
   exec /usr/bin/git "$@"
 fi
