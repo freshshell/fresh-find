@@ -10,6 +10,7 @@ exec docker run \
   --interactive \
   --memory "${SANDBOX_MEMORY:-256M}" \
   -v fresh-find-sandbox-git-cache:/var/cache/git-cow \
+  -v fresh-find-sandbox-fresh-source:/home/user/.fresh/source \
   --user root \
   freshshell/fresh-find/sandbox \
   timeout -k 30 "${SANDBOX_TIMEOUT:-120}" sudo -EHn -u user "${@:-bash}"

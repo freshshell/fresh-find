@@ -17,3 +17,6 @@ COPY bin /usr/local/bin
 RUN useradd -m user && rm ~user/.bashrc
 USER user
 WORKDIR /home/user
+
+RUN mkdir -p /home/user/.fresh/source
+VOLUME /home/user/.fresh/source
