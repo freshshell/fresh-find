@@ -4,4 +4,4 @@ IFS=$'\n\t'
 
 export FRESH_LOCAL_SOURCE="${1:?}"
 bash <(curl -sL get.freshshell.com)
-~/bin/fresh show
+~/.fresh/source/freshshell/fresh/bin/fresh show
